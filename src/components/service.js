@@ -13,7 +13,7 @@ export default class PixabayApi {
         baseURL: 'https://pixabay.com/api/',
       });
       const resposne = await api.get(
-        `?key=${KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
+        `?key=${KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${this.page}`
       );
       const newObj = await resposne.data;
       this.page += 1;
@@ -34,5 +34,9 @@ export default class PixabayApi {
 
   set query(newQuery) {
     this.searchQuery = newQuery;
+  }
+
+  set appPage(newPage) {
+    this.page = newPage;
   }
 }
