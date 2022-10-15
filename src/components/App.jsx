@@ -1,6 +1,9 @@
 import { Component } from 'react';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
+import PixabayApi from 'components/service';
+const pixabayApi = new PixabayApi();
+
 // import { Audio } from 'react-loader-spinner';
 // import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 // import PixabayApi from './service';
@@ -10,8 +13,10 @@ import ImageGallery from './ImageGallery';
 export class App extends Component {
   state = {
     searchRequest: '',
-    // pictures: null,
+    page: 1,
+    pictures: [],
     loading: false,
+    loadMore: false,
   };
 
   handleSearchRequest = value => {
@@ -20,21 +25,23 @@ export class App extends Component {
     });
   };
 
-  // async componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.searchRequest !== this.state.searchRequest ||
+      prevState.page !== this.state.page
+    ) {
+      console.log('fetch');
+    }
+  }
 
-  //   pixabayApi.query = this.state.searchRequest;
-  //   pixabayApi.resetPage();
-  //   try {
-  //     const data = await pixabayApi.fetchPhotos();
-  //     console.log(data.hits);
-  //     console.log(this.state.pictures);
-  //     this.setState({
-  //       pictures: data.hits,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  loadMore = () => {
+    this.setState(prevState => ({
+      loadMore: !prevState.loadMore,
+      page: prevState.page + 1,
+    }));
+
+    console.log(this.state.loadMore);
+  };
 
   render() {
     console.log(this.state.searchRequest);
@@ -42,9 +49,14 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handleSearchRequest} />
         {this.state.loading && <p>Загружаем</p>}
-        <ImageGallery searchRequest={this.state.searchRequest} />
-        {/* <ImageGallery pictures={this.state.pictures} /> */}
+        <ImageGallery
+          searchRequest={this.state.searchRequest}
+          loadMore={this.state.loadMore}
+        />
+        <ImageGallery pictures={this.state.pictures} />
+
         {/* {this.state.pictures && <ImageGallery pictures={this.state.pictures} />} */}
+        <button type="button" onClick={this.loadMore}></button>
       </>
     );
   }

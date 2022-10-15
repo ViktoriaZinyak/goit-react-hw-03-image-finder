@@ -1,7 +1,5 @@
 import { Component } from 'react';
-import PixabayApi from 'components/service';
 
-const pixabayApi = new PixabayApi();
 class ImageGallery extends Component {
   //   componentDidUpdate(prevProps, prevState) {
   //     if (prevProps.pictures !== this.props.pictures) {
@@ -9,21 +7,32 @@ class ImageGallery extends Component {
   //   }
   state = { pictures: null };
 
-  async componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchRequest !== this.props.searchRequest) {
-      pixabayApi.query = this.props.searchRequest;
-      pixabayApi.resetPage();
-      try {
-        const data = await pixabayApi.fetchPhotos();
-        console.log(data.hits);
-        this.setState({
-          pictures: data.hits,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
+  //   async componentDidUpdate(prevProps, prevState) {
+  //     if (prevProps.searchRequest !== this.props.searchRequest) {
+  //       pixabayApi.query = this.props.searchRequest;
+  //       pixabayApi.resetPage();
+  //       try {
+  //         const data = await pixabayApi.fetchPhotos();
+  //         console.log(data.hits);
+  //         this.setState({
+  //           pictures: data.hits,
+  //         });
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     }
+  //     if (prevProps.loadMore !== this.props.loadMore) {
+  //       try {
+  //         const data = await pixabayApi.fetchPhotos();
+  //         console.log(data.hits);
+  //         this.setState(prevState => ({
+  //           pictures: [...data.hits, ...prevState.pictures],
+  //         }));
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     }
+  //   }
 
   //   render() {
   //     return (
@@ -37,6 +46,7 @@ class ImageGallery extends Component {
   //     );
   //   }
   render() {
+    console.log(this.state.pictures);
     return (
       <>
         {this.state.pictures && (
