@@ -1,10 +1,11 @@
+import { ImageGalleryItem } from './ImageGelleryItem';
+import css from './ImageGallery.module.css';
+
 const ImageGallery = ({ pictures }) => {
   return (
-    <ul className="gallery">
+    <ul className={css.ImageGallery}>
       {pictures.map(picture => (
-        <li key={picture.id} className="gallery-item">
-          <img src={picture.webformatURL} alt="" />
-        </li>
+        <ImageGalleryItem key={picture.id} picture={picture} />
       ))}
     </ul>
   );
