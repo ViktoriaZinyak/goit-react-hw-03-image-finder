@@ -71,7 +71,7 @@ export class App extends Component {
           />
         )}
         <ImageGallery pictures={pictures} />
-        {loadMore && <Button onClick={this.loadMore} />}
+        {loadMore && pictures.length > 0 && <Button onClick={this.loadMore} />}
       </div>
     );
   }
