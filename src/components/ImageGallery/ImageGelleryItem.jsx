@@ -7,30 +7,30 @@ export class ImageGalleryItem extends Component {
     modalShow: false,
   };
 
-  openLargeImg = () => {
-    this.setState({
-      modalShow: true,
-    });
+  toggleModal = () => {
+    this.setState(({ modalShow }) => ({
+      modalShow: !modalShow,
+    }));
+  };
+
+  onCloseModal = () => {
+    this.setState({ modalShow: false });
   };
 
   render() {
+    const { webformatURL, tags, largeImageURL } = this.props.picture;
     return (
       <>
         <li className={css.ImageGalleryItem}>
           <img
-            src={this.props.picture.webformatURL}
-            alt=""
-            onClick={this.openLargeImg}
+            src={webformatURL}
+            alt={tags}
+            onClick={this.toggleModal}
             className={css.ImageGalleryItem__image}
           />
         </li>
         {this.state.modalShow && (
-          <Modal largeImg={this.props.picture.largeImageURL} />
-          // <div className="overlay">
-          //   <div className="modal">
-          //     <img src={this.props.picture.largeImageURL} alt="" />
-          //   </div>
-          // </div>
+          <Modal largeImg={largeImageURL} onClose={this.onCloseModal} />
         )}
       </>
     );

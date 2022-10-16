@@ -16,7 +16,6 @@ export default class PixabayApi {
         `?key=${KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${this.page}`
       );
       const newObj = await resposne.data;
-      this.page += 1;
       return newObj;
     } catch (error) {
       console.error(error);
@@ -26,10 +25,6 @@ export default class PixabayApi {
 
   resetPage() {
     this.page = 1;
-  }
-
-  get query() {
-    return this.searchQuery;
   }
 
   set query(newQuery) {

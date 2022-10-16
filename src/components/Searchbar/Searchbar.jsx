@@ -33,7 +33,6 @@ class Searchbar extends Component {
             <ImSearch />
             <span className={css.SearchForm__button_label}>Search</span>
           </button>
-
           <input
             className={css.SearchForm__input}
             type="text"
